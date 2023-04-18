@@ -23,7 +23,7 @@ public class PostService {
     ));
 
     public List<Post> fetchAllPosts() {
-        return this.posts;
+        return posts;
     }
 
     public Post createPost(String title, String author, String content) {

@@ -12,6 +12,9 @@
 <header class="mb-4">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
+
+            <img src="<c:url value="/images/monImage.jpg">"/>
+
             <img src="https://img.icons8.com/plasticine/64/null/blog.png"/>
             <a class="navbar-brand" href="#">The Blog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
