@@ -11,8 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/", "/posts"})
+@WebServlet(urlPatterns = {"/", PostListServlet.URL})
 public class PostListServlet extends HttpServlet {
+
+    public static final String URL = "/posts";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
