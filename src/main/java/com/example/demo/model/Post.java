@@ -10,14 +10,16 @@ public class Post {
     private String content;
     private String pictureUrl;
     private LocalDateTime createdAt;
+    private Category category;
 
-    public Post(Long id, String title, String author, String content, String pictureUrl) {
+    public Post(Long id, String title, String author, String content, String pictureUrl, LocalDateTime createdAt, Category category) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
         this.pictureUrl = pictureUrl;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = createdAt;
+        this.category = category;
     }
 
     public Long getId() {
@@ -42,5 +44,37 @@ public class Post {
 
     public String getPictureUrl() {
         return pictureUrl;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

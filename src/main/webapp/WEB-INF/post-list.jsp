@@ -22,10 +22,9 @@
                     <div class="card-body">
                         <h5 class="card-title">${p.title}</h5>
                         <p class="card-text">${p.content}</p>
-
-                        <fmt:parseDate value="${p.createdAt}" pattern="yyyy-MM-dd" var="postDate" type="date"/>
-                        <fmt:formatDate pattern="dd MMMM yyyy hh:mm" value="${postDate}"/>
-
+                        <fmt:parseDate value="${p.createdAt}" pattern="yyyy-MM-dd'T'HH:mm" var="postDate" type="date"/>
+                        <p class="card-text"><fmt:formatDate pattern="dd MMMM yyyy hh:mm" value="${postDate}"/></p>
+                        <p class="card-text">${p.category.name}</p>
                     </div>
                 </div>
             </div>
