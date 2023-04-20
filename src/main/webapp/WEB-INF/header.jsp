@@ -3,7 +3,8 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
 
-            <img src="https://img.icons8.com/plasticine/64/null/blog.png"/>
+            <img src="${pageContext.request.contextPath}/images/logo.png">
+
             <a class="navbar-brand" href="#">The Blog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
