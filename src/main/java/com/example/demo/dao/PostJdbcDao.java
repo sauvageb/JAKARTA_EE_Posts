@@ -90,11 +90,31 @@ public class PostJdbcDao implements PostDao {
 
     @Override
     public void update(Post entity) {
-
+        Connection connection = ConnectionManager.getInstance();
+        String query = "UPDATE posts SET title = ?, author = ?, content = ?, picture_url = ?, created_at = ?, category_fk = ? WHERE id = ?";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setString(1, entity.getTitle());
+            pst.setString(2, entity.getAuthor());
+            pst.setString(3, entity.getContent());
+            pst.setString(4, entity.getPictureUrl());
+            pst.setTimestamp(5, Timestamp.valueOf(entity.getCreatedAt()));
+            pst.setLong(6, entity.getCategory().getId());
+            pst.setLong(7, entity.getId());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Post entity) {
-
+        Connection connection = ConnectionManager.getInstance();
+        String query = "DELETE FROM posts WHERE id = ?";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setLong(1, entity.getId());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -41,6 +41,15 @@ public class PostService {
         return postDao.create(postToCreate);
     }
 
+    public Post fetchPostById(Long id) {
+        return postDao.findById(id);
+    }
+
+    public void delete(Long postId) {
+        Post postToDelete = postDao.findById(postId);
+        postDao.delete(postToDelete);
+    }
+
 
 //    public Post createPost(String title, String author, String content) {
 //        Post p = new Post(++idSequence, title, author, content, "https://picsum.photos/200/300?random=" + idSequence);

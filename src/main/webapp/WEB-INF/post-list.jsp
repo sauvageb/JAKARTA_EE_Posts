@@ -22,9 +22,12 @@
                     <div class="card-body">
                         <h5 class="card-title">${p.title}</h5>
                         <p class="card-text">${p.content}</p>
-                        <fmt:parseDate value="${p.createdAt}" pattern="yyyy-MM-dd'T'HH:mm" var="postDate" type="date"/>
+                        <fmt:parseDate value="${p.createdAt}" pattern="yyyy-MM-dd'T'HH:mm" var="postDate"
+                                       type="date"/>
                         <p class="card-text"><fmt:formatDate pattern="dd MMMM yyyy hh:mm" value="${postDate}"/></p>
                         <p class="card-text">${p.category.name}</p>
+                        <a href="${pageContext.request.contextPath}/post-details?id=${p.id}" class="btn btn-primary">Details</a>
+                        <a href="${pageContext.request.contextPath}/post-remove?id=${p.id}" class="btn btn-danger">Remove</a>
                     </div>
                 </div>
             </div>
