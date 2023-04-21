@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -36,24 +37,41 @@
 </header>
 
 <div class="container">
-    <h1>Add post</h1>
 
-    <form method="post" action="add-post">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="title" placeholder="Title...">
-        </div>
+    <div class="col-6 offset-3">
+        <h1>Add post</h1>
 
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="author" placeholder="Author...">
-        </div>
+        <form method="post" action="add-post">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="title" placeholder="Title...">
+            </div>
 
-        <div class="input-group mb-3">
-            <textarea class="form-control" name="content" placeholder="Your content.."></textarea>
-        </div>
-        <div class="input-group">
-            <button type="submit" class="btn btn-outline-dark">Submit</button>
-        </div>
-    </form>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="author" placeholder="Author...">
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="pictureUrl"
+                       placeholder="http://cdn.pictures.com/image.jpg">
+            </div>
+
+            <div class="input-group mb-3">
+                <textarea class="form-control" name="content" placeholder="Your content.."></textarea>
+            </div>
+
+            <div class="input-group mb-3">
+                <select name="categoryId" class="form-select">
+                    <c:forEach items="${categories}" var="category">
+                        <option value="${category.id}">${category.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <button type="submit" class="btn btn-outline-dark">Submit</button>
+            </div>
+        </form>
+    </div>
 
 
 </div>

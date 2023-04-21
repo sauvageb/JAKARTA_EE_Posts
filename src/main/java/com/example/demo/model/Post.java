@@ -22,6 +22,15 @@ public class Post {
         this.category = category;
     }
 
+    public Post(String title, String author, String content, String pictureUrl, Category category) {
+        this.title = title;
+        this.author = author;
+        this.content = content;
+        this.pictureUrl = pictureUrl;
+        this.createdAt = LocalDateTime.now();
+        this.category = category;
+    }
+
     public Long getId() {
         return id;
     }

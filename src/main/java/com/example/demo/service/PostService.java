@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.CategoryDao;
+import com.example.demo.dao.CategoryJdbcDao;
 import com.example.demo.dao.PostDao;
 import com.example.demo.dao.PostJdbcDao;
 import com.example.demo.model.Category;
@@ -16,6 +18,8 @@ import java.util.Locale;
 public class PostService {
 
     private PostDao postDao = new PostJdbcDao();
+    private CategoryDao categoryDao = new CategoryJdbcDao();
+
     private static Faker faker = new Faker(new Locale("fr"));
 
     private static long idSequence = 0;
@@ -31,9 +35,10 @@ public class PostService {
         return postDao.findAll();
     }
 
-    public Post createPost(String title, String author, String content) {
-        //TODO
-        throw new RuntimeException();
+    public boolean createPost(String title, String author, String content, String pictureUrl, Long categoryId) {
+        Category selectedCategory = categoryDao.findById(categoryId);
+        Post postToCreate = new Post(title, author, content, pictureUrl, selectedCategory);
+        return postDao.create(postToCreate);
     }
 
 
