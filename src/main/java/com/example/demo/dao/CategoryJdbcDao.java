@@ -9,7 +9,16 @@ import java.util.List;
 public class CategoryJdbcDao implements CategoryDao {
     @Override
     public boolean create(Category entity) {
-        return false;
+        Connection connection = ConnectionManager.getInstance();
+        String query = "INSERT INTO categories (name) VALUES (?)";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setString(1, entity.getName());
+            int result = pst.executeUpdate();
+            return result == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -57,11 +66,26 @@ public class CategoryJdbcDao implements CategoryDao {
 
     @Override
     public void update(Category entity) {
-        throw new RuntimeException();
+        Connection connection = ConnectionManager.getInstance();
+        String query = "UPDATE posts SET name = ? WHERE id = ?";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setString(1, entity.getName());
+            pst.setLong(2, entity.getId());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Category entity) {
-        throw new RuntimeException();
+        Connection connection = ConnectionManager.getInstance();
+        String query = "DELETE FROM categories WHERE id = ?";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setLong(1, entity.getId());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
