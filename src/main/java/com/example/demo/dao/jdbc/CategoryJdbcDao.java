@@ -1,5 +1,7 @@
-package com.example.demo.dao;
+package com.example.demo.dao.jdbc;
 
+import com.example.demo.dao.crud.CategoryDao;
+import com.example.demo.dao.ConnectionManager;
 import com.example.demo.model.Category;
 
 import java.sql.*;
@@ -8,17 +10,23 @@ import java.util.List;
 
 public class CategoryJdbcDao implements CategoryDao {
     @Override
-    public boolean create(Category entity) {
+    public Category create(Category entity) {
         Connection connection = ConnectionManager.getInstance();
         String query = "INSERT INTO categories (name) VALUES (?)";
-        try (PreparedStatement pst = connection.prepareStatement(query)) {
+        try (PreparedStatement pst = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, entity.getName());
             int result = pst.executeUpdate();
-            return result == 1;
+            if (result == 1) {
+                ResultSet rs = pst.getGeneratedKeys();
+                if (rs.next()) {
+                    Long id = rs.getLong(1);
+                    return new Category(id, entity.getName());
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return null;
     }
 
     @Override

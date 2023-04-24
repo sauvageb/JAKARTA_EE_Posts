@@ -1,5 +1,7 @@
-package com.example.demo.dao;
+package com.example.demo.dao.jdbc;
 
+import com.example.demo.dao.ConnectionManager;
+import com.example.demo.dao.crud.UserDao;
 import com.example.demo.model.User;
 
 import java.sql.Connection;
@@ -11,7 +13,7 @@ import java.util.List;
 public class UserJdbcDao implements UserDao {
 
     @Override
-    public boolean create(User entity) {
+    public User create(User entity) {
         throw new RuntimeException();
     }
 

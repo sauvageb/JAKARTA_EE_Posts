@@ -1,5 +1,7 @@
-package com.example.demo.dao;
+package com.example.demo.dao.jdbc;
 
+import com.example.demo.dao.ConnectionManager;
+import com.example.demo.dao.crud.PostDao;
 import com.example.demo.model.Category;
 import com.example.demo.model.Post;
 
@@ -40,7 +42,7 @@ public class PostJdbcDao implements PostDao {
 
 
     @Override
-    public boolean create(Post entity) {
+    public Post create(Post entity) {
         Connection connection = ConnectionManager.getInstance();
         String query = "INSERT INTO posts (title, author, content, picture_url, created_at, category_fk) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = connection.prepareStatement(query)) {
@@ -51,11 +53,18 @@ public class PostJdbcDao implements PostDao {
             pst.setTimestamp(5, Timestamp.valueOf(entity.getCreatedAt()));
             pst.setLong(6, entity.getCategory().getId());
             int result = pst.executeUpdate();
-            return result == 1;
+            if (result == 1) {
+                ResultSet generatedKeys = pst.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    Long id = generatedKeys.getLong(1);
+                    entity.setId(id);
+                    return entity;
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return null;
     }
 
 

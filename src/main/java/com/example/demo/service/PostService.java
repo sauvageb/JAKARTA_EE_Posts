@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.CategoryDao;
-import com.example.demo.dao.CategoryJdbcDao;
-import com.example.demo.dao.PostDao;
-import com.example.demo.dao.PostJdbcDao;
+import com.example.demo.dao.crud.CategoryDao;
+import com.example.demo.dao.jdbc.CategoryJdbcDao;
+import com.example.demo.dao.crud.PostDao;
+import com.example.demo.dao.jdbc.PostJdbcDao;
 import com.example.demo.model.Category;
 import com.example.demo.model.Post;
 import com.github.javafaker.Faker;
@@ -35,7 +35,7 @@ public class PostService {
         return postDao.findAll();
     }
 
-    public boolean createPost(String title, String author, String content, String pictureUrl, Long categoryId) {
+    public Post createPost(String title, String author, String content, String pictureUrl, Long categoryId) {
         Category selectedCategory = categoryDao.findById(categoryId);
         Post postToCreate = new Post(title, author, content, pictureUrl, selectedCategory);
         return postDao.create(postToCreate);
@@ -48,6 +48,10 @@ public class PostService {
     public void delete(Long postId) {
         Post postToDelete = postDao.findById(postId);
         postDao.delete(postToDelete);
+    }
+
+    public void update(Post post) {
+        postDao.update(post);
     }
 
 

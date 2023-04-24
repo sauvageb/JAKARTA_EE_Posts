@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.UserDao;
-import com.example.demo.dao.UserJdbcDao;
+import com.example.demo.dao.crud.UserDao;
+import com.example.demo.dao.jdbc.UserJdbcDao;
 import com.example.demo.model.User;
 
 public class UserService {
