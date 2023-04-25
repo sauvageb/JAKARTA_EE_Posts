@@ -12,6 +12,8 @@ import java.util.List;
 @Path("/posts")
 public class PostRessource {
 
+    private static PostService postService = new PostService();
+
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -29,7 +31,6 @@ public class PostRessource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        PostService postService = new PostService();
         List<Post> postList = postService.fetchAllPosts();
 
         return Response
@@ -39,14 +40,14 @@ public class PostRessource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(CreatePost createPost) {
+    public Response create(CreatePost dto) {
         PostService postService = new PostService();
         Post createdPost = postService.createPost(
-                createPost.getTitle(),
-                createPost.getAuthor(),
-                createPost.getContent(),
-                createPost.getPictureUrl(),
-                createPost.getCategoryId());
+                dto.getTitle(),
+                dto.getAuthor(),
+                dto.getContent(),
+                dto.getPictureUrl(),
+                dto.getCategoryId());
 
         return Response
                 .status(Response.Status.CREATED)

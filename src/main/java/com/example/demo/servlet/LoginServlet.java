@@ -14,7 +14,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     public static final String URL = "/login";
-    public static final String LOGIN_JSP = "/WEB-INF/login.jsp";
+    private static final String LOGIN_JSP = "/WEB-INF/login.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,11 +28,11 @@ public class LoginServlet extends HttpServlet {
 
         UserService userService = new UserService();
         boolean isLogged = userService.login(username, password);
-        if(isLogged){
+        if (isLogged) {
             HttpSession session = req.getSession();
             session.setAttribute("username", username);
             resp.sendRedirect(req.getContextPath() + PostListServlet.URL);
-        }else {
+        } else {
             req.setAttribute("login_error", true);
             req.getRequestDispatcher(LOGIN_JSP).forward(req, resp);
         }

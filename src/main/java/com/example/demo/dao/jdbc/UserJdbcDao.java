@@ -1,13 +1,10 @@
 package com.example.demo.dao.jdbc;
 
-import com.example.demo.dao.ConnectionManager;
 import com.example.demo.dao.crud.UserDao;
 import com.example.demo.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserJdbcDao implements UserDao {
@@ -19,7 +16,25 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public List<User> findAll() {
-        throw new RuntimeException();
+        Connection connection = ConnectionPoolManager.getInstance();
+        String query = "SELECT id, username, password FROM users";
+        List<User> userList = new ArrayList<>();
+
+        try (Statement pst = connection.createStatement()) {
+            ResultSet result = pst.executeQuery(query);
+
+            while (result.next()) {
+                User user = new User(
+                        result.getLong("id"),
+                        result.getString("username"),
+                        result.getString("password")
+                );
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
     }
 
     @Override
@@ -39,7 +54,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        Connection connection = ConnectionManager.getInstance();
+        Connection connection = ConnectionPoolManager.getInstance();
         String query = "SELECT id, username, password FROM users WHERE username=?";
         User userFound = null;
 
