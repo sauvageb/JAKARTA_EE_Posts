@@ -45,15 +45,15 @@ public class PostJdbcDao implements PostDao {
     public Post create(Post entity) {
         Connection connection = ConnectionManager.getInstance();
         String query = "INSERT INTO posts (title, author, content, picture_url, created_at, category_fk) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement pst = connection.prepareStatement(query)) {
+        try (PreparedStatement pst = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, entity.getTitle());
             pst.setString(2, entity.getAuthor());
             pst.setString(3, entity.getContent());
             pst.setString(4, entity.getPictureUrl());
             pst.setTimestamp(5, Timestamp.valueOf(entity.getCreatedAt()));
             pst.setLong(6, entity.getCategory().getId());
-            int result = pst.executeUpdate();
-            if (result == 1) {
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected == 1) {
                 ResultSet generatedKeys = pst.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     Long id = generatedKeys.getLong(1);
