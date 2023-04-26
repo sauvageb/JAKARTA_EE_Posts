@@ -15,6 +15,7 @@ public class UserResource {
 
     private static UserService userService = new UserService();
 
+
     @GET
     @Produces(value = MediaType.APPLICATION_JSON)
     public Response getAll() {

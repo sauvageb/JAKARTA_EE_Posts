@@ -1,5 +1,6 @@
 package com.example.demo.dao.jdbc;
 
+import com.example.demo.dao.ConnectionManager;
 import com.example.demo.dao.crud.UserDao;
 import com.example.demo.model.User;
 
@@ -16,7 +17,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public List<User> findAll() {
-        Connection connection = ConnectionPoolManager.getInstance();
+        Connection connection = ConnectionManager.getInstance();
         String query = "SELECT id, username, password FROM users";
         List<User> userList = new ArrayList<>();
 
@@ -38,8 +39,26 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public User findById(Long aLong) {
-        throw new RuntimeException();
+    public User findById(Long id) {
+        Connection connection = ConnectionManager.getInstance();
+        User userFound = null;
+
+        String query = "SELECT id, username, password FROM users WHERE id = ?";
+
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setLong(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                userFound = new User(
+                        rs.getLong("id"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userFound;
     }
 
     @Override
@@ -54,7 +73,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        Connection connection = ConnectionPoolManager.getInstance();
+        Connection connection = ConnectionManager.getInstance();
         String query = "SELECT id, username, password FROM users WHERE username=?";
         User userFound = null;
 
