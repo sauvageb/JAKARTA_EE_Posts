@@ -10,8 +10,11 @@ public class CategoryService {
 
     private CategoryDao categoryDao = new CategoryJdbcDao();
 
-
     public List<Category> fetchAllCategories() {
         return categoryDao.findAll();
+    }
+
+    public void setCategoryDao(CategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
     }
 }

@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/posts")
-public class PostRessource {
+public class PostResource {
 
     private static PostService postService = new PostService();
 

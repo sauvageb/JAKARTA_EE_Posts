@@ -86,4 +86,17 @@ public class Post {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", content='" + content + '\'' +
+                ", pictureUrl='" + pictureUrl + '\'' +
+                ", createdAt=" + createdAt +
+                ", category=" + category +
+                '}';
+    }
 }

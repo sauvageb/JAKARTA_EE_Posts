@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.crud.CategoryDao;
-import com.example.demo.dao.jdbc.CategoryJdbcDao;
 import com.example.demo.dao.crud.PostDao;
+import com.example.demo.dao.jdbc.CategoryJdbcDao;
 import com.example.demo.dao.jdbc.PostJdbcDao;
 import com.example.demo.model.Category;
 import com.example.demo.model.Post;
@@ -38,7 +38,8 @@ public class PostService {
     public Post createPost(String title, String author, String content, String pictureUrl, Long categoryId) {
         Category selectedCategory = categoryDao.findById(categoryId);
         Post postToCreate = new Post(title, author, content, pictureUrl, selectedCategory);
-        return postDao.create(postToCreate);
+        Post createdPost = postDao.create(postToCreate);
+        return createdPost;
     }
 
     public Post fetchPostById(Long id) {
@@ -62,4 +63,11 @@ public class PostService {
 //    }
 
 
+    public void setPostDao(PostDao postDao) {
+        this.postDao = postDao;
+    }
+
+    public void setCategoryDao(CategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
+    }
 }
